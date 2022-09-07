@@ -450,6 +450,20 @@ class $FreezedListCopyWith<T, $Res> {
     return __then(FreezedList<T>(newList));
   }
 
+  /// Removes and returns the first object in this list.
+  ///
+  /// The list must be growable and non-empty.
+  /// ```dart
+  /// final parts = <String>['head', 'shoulder', 'knees', 'toes'];
+  /// final retVal = parts.removeFirst(); // toes
+  /// print(parts); // [shoulder, knees, toes]
+  /// ```
+  $Res removeFirst() {
+    var newList = _value.list.toList();
+    newList.removeAt(0);
+    return __then(FreezedList<T>(newList));
+  }
+
   /// Removes and returns the last object in this list.
   ///
   /// The list must be growable and non-empty.
@@ -652,7 +666,4 @@ class $FreezedListCopyWith<T, $Res> {
     newList.sort(compare);
     return __then(FreezedList<T>(newList));
   }
-
-//need to add "removeFirst" - /// Removes the first occurrence of [value] from this list.
-//   ///
 }
