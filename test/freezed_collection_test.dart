@@ -108,11 +108,22 @@ void main() {
     });
   });
 
-  test('Remove Test', () {
+  test('RemoveFirstWhere Test', () {
     final var1 = _collectors();
     final var2 = var1.copyWith.removeFirstWhere(
           (element) => element.numbers[0].values[0] == 1,
     );
+
+    int n = _collect(var1);
+    int m = _collect(var2);
+
+    expect(n, equals((1 + 2 + 3 + 4) * 4));
+    expect(m, equals((3 + 4) * 4));
+  });
+
+  test('RemoveFirst Test', () {
+    final var1 = _collectors();
+    final var2 = var1.copyWith.removeFirst();
 
     int n = _collect(var1);
     int m = _collect(var2);
