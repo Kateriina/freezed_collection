@@ -74,26 +74,7 @@ void main() {
     });
 
     test('Plain Test', () {
-      final var1 = FreezedList<Collector>(
-        [
-          Collector(
-            FreezedList(
-              [
-                Numbers(FreezedList([1, 1, 1, 1])),
-                Numbers(FreezedList([2, 2, 2, 2]))
-              ],
-            ),
-          ),
-          Collector(
-            FreezedList(
-              [
-                Numbers(FreezedList([3, 3, 3, 3])),
-                Numbers(FreezedList([4, 4, 4, 4]))
-              ],
-            ),
-          ),
-        ],
-      );
+      final var1 = _collectors();
 
       final var2 = var1.copyWith.replaceFirstWhere(
           Collector(FreezedList(
@@ -126,4 +107,52 @@ void main() {
       expect(m, equals((5 + 6 + 3 + 4) * 4));
     });
   });
+
+  test('Remove Test', () {
+    final var1 = _collectors();
+    final var2 = var1.copyWith.removeFirstWhere(
+          (element) => element.numbers[0].values[0] == 1,
+    );
+
+    int n = _collect(var1);
+    int m = _collect(var2);
+
+    expect(n, equals((1 + 2 + 3 + 4) * 4));
+    expect(m, equals((3 + 4) * 4));
+  });
+}
+
+int _collect(FreezedList<Collector> var1) {
+  var n = 0;
+  for (var v in var1) {
+    for (var w in v.numbers) {
+      for (var x in w.values) {
+        n += x;
+      }
+    }
+  }
+  return n;
+}
+
+FreezedList<Collector> _collectors() {
+  return FreezedList<Collector>(
+    [
+      Collector(
+        FreezedList(
+          [
+            Numbers(FreezedList([1, 1, 1, 1])),
+            Numbers(FreezedList([2, 2, 2, 2]))
+          ],
+        ),
+      ),
+      Collector(
+        FreezedList(
+          [
+            Numbers(FreezedList([3, 3, 3, 3])),
+            Numbers(FreezedList([4, 4, 4, 4]))
+          ],
+        ),
+      ),
+    ],
+  );
 }
